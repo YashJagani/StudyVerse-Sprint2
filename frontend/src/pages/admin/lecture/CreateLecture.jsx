@@ -158,7 +158,7 @@ const CreateLecture = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen p-6">
-      <Card className="w-full max-w-2xl p-6 shadow-lg border rounded-lg">
+      <Card className="w-full max-w-2xl p-6 shadow-lg border rounded-3xl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Add New Lecture</CardTitle>
           <CardDescription className="text-center">
