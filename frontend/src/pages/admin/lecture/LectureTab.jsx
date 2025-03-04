@@ -36,7 +36,7 @@ const LectureTab = () => {
   const [mediaProgress, setMediaProgress] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [btnDisable, setBtnDisable] = useState(true);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false); // 🔥 Added state for delete confirmation
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   const params = useParams();
   const { courseId, lectureId } = params;
@@ -101,7 +101,7 @@ const LectureTab = () => {
 
   const removeLectureHandler = async () => {
     await removeLecture(lectureId);
-    setShowDeleteDialog(false); // Close the dialog after deletion
+    setShowDeleteDialog(false);
   };
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const LectureTab = () => {
 
   useEffect(() => {
     if (removeSuccess) {
-      toast.success(removeData.message, { style: { color: "green" } }); // ✅ Toast message in green after deletion
+      toast.success(removeData.message, { style: { color: "green" } });
     }
   }, [removeSuccess]);
 
@@ -126,24 +126,8 @@ const LectureTab = () => {
           <div>
             <CardTitle>Edit Lecture</CardTitle>
             <CardDescription>
-              Make changes and click save when done.
+              Make changes in existing lecture title and videos.
             </CardDescription>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              disabled={removeLoading}
-              variant="destructive"
-              onClick={() => setShowDeleteDialog(true)} // 🔥 Open confirmation dialog
-            >
-              {removeLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                "Remove Lecture"
-              )}
-            </Button>
           </div>
         </CardHeader>
         <CardContent>
@@ -193,6 +177,21 @@ const LectureTab = () => {
                 </>
               ) : (
                 "Update Lecture"
+              )}
+            </Button>
+            &nbsp; &nbsp;
+            <Button
+              disabled={removeLoading}
+              variant="destructive"
+              onClick={() => setShowDeleteDialog(true)}
+            >
+              {removeLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                "Remove Lecture"
               )}
             </Button>
           </div>
