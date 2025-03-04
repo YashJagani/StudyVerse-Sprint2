@@ -51,7 +51,7 @@ const CreateLecture = () => {
           Lets add lectures, add some basic details for new lectures.
         </h1>
         <p className="text-sm">
-          Simply create new lectures bu adding lecture title.
+          Simply create new lectures by adding lecture title.
         </p>
       </div>
       <div className="space-y-4">
