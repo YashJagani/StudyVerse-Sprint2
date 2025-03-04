@@ -24,6 +24,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRoute);
