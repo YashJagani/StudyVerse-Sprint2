@@ -17,6 +17,6 @@ router.route("/:courseId/lecture/:lectureId").post(isAuthenticated, editLecture 
 router.route("/lecture/:lectureId").delete(isAuthenticated, removeLecture );
 router.route("/lecture/:lectureId").get(isAuthenticated, getLectureById );
 router.route("/:courseId").patch(isAuthenticated, togglePublishCourse );
-
 router.delete("/:courseId", deleteCourse);
+
 export default router;
