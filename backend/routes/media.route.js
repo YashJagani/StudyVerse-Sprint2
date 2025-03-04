@@ -4,6 +4,7 @@ import { uploadMedia } from "../utils/cloudinary.js";
 
 const router = express.Router();
 
+// routing for lecture videos
 router.route("/upload-video").post(upload.single("file"), async(req,res) => {
     try {
         const result = await uploadMedia(req.file.path);
