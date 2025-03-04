@@ -33,7 +33,7 @@
 import { ChartNoAxesColumn, SquareLibrary, Users } from "lucide-react";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import logo from "@/assets/logo.jpg"; // Importing the logo
+import logo from "@/assets/logo.jpg";
 
 const Sidebar = () => {
   return (
