@@ -25,7 +25,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogFooter,
-} from "@/components/ui/dialog"; // Import Dialog for confirmation
+} from "@/components/ui/dialog"; 
 
 const MEDIA_API = "http://localhost:1552/api/v1/media";
 
@@ -78,11 +78,11 @@ const LectureTab = () => {
             publicId: res.data.data.public_id,
           });
           setBtnDisable(false);
-          toast.success(res.data.message);
+          toast.success(res.data.message, {style: {color: "green"}});
         }
       } catch (error) {
         console.log(error);
-        toast.error("Video upload failed");
+        toast.error("Video upload failed", {style: {color: "red"}});
       } finally {
         setMediaProgress(false);
       }
@@ -106,10 +106,10 @@ const LectureTab = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message);
+      toast.success(data.message, {style: {color: "green"}});
     }
     if (error) {
-      toast.error(error.data.message);
+      toast.error(error.data.message, {style: {color: "red"}});
     }
   }, [isSuccess, error]);
 
