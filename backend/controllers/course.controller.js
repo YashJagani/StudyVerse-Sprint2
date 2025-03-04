@@ -138,6 +138,7 @@ export const getCourseById = async (req, res) => {
   }
 };
 
+// create lecture
 export const createLecture = async (req, res) => {
   try {
     const { lectureTitle } = req.body;
@@ -169,6 +170,7 @@ export const createLecture = async (req, res) => {
   }
 };
 
+//get lecture
 export const getCourseLecture = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -189,7 +191,7 @@ export const getCourseLecture = async (req, res) => {
   }
 };
 
-
+// edit lecture
 export const editLecture = async (req,res) => {
   try {
       const {lectureTitle, videoInfo, isPreviewFree} = req.body;
@@ -227,6 +229,8 @@ export const editLecture = async (req,res) => {
       })
   }
 }
+
+// remove lecture
 export const removeLecture = async (req,res) => {
   try {
       const {lectureId} = req.params;
@@ -243,8 +247,8 @@ export const removeLecture = async (req,res) => {
 
       // Remove the lecture reference from the associated course
       await Course.updateOne(
-          {lectures:lectureId}, // find the course that contains the lecture
-          {$pull:{lectures:lectureId}} // Remove the lectures id from the lectures array
+          {lectures:lectureId}, 
+          {$pull:{lectures:lectureId}} 
       );
 
       return res.status(200).json({
@@ -258,7 +262,7 @@ export const removeLecture = async (req,res) => {
   }
 }
 
-
+// get lecture by id
 export const getLectureById = async (req,res) => {
   try {
       const {lectureId} = req.params;
