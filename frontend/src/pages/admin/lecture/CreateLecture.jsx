@@ -35,10 +35,10 @@ const CreateLecture = () => {
   useEffect(() => {
     if (isSuccess) {
       refetch();
-      toast.success(data.message);
+      toast.success(data.message, {style: {color: "green"}});
     }
     if (error) {
-      toast.error(error.data.message);
+      toast.error(error.data.message, {style: {color: "red"}});
     }
   }, [isSuccess, error]);
 
