@@ -168,7 +168,7 @@ const CreateLecture = () => {
         <CardContent>
           <div className="space-y-5">
             <div>
-              <Label className="font-medium font-bold">Lecture Title</Label>
+              <Label className="text-md font-bold">Lecture Title</Label>
               <Input
                 type="text"
                 value={lectureTitle}
@@ -205,7 +205,7 @@ const CreateLecture = () => {
               ) : lectureError ? (
                 <p className="text-red-500 text-center">Failed to load lectures.</p>
               ) : lectureData.lectures.length === 0 ? (
-                <p className="text-center text-gray-500">No lectures available.</p>
+                <p className="text-center font-bold text-black-500">No lectures available.</p>
               ) : (
                 <ul className="space-y-2">
                   {lectureData.lectures.map((lecture, index) => (
