@@ -82,7 +82,7 @@ const CourseTab = () => {
           course.category &&
           course.courseLevel &&
           course.coursePrice &&
-          course.lectures.length > 0 
+          course.lectures.length > 0
       );
     }
   }, [courseByIdData]);
@@ -91,13 +91,13 @@ const CourseTab = () => {
     try {
       const response = await deleteCourse(courseId);
       if (response.data) {
-        toast.success(response.data.message, {style: {color: "green"}});
-        navigate("/admin/course"); 
+        toast.success(response.data.message, { style: { color: "green" } });
+        navigate("/admin/course");
       }
     } catch (error) {
       toast.error(error?.data?.message || "Failed to delete course");
     }
-    setShowDeleteDialog(false); 
+    setShowDeleteDialog(false);
   };
   const [previewThumbnail, setPreviewThumbnail] = useState("");
   // const navigate = useNavigate();
@@ -146,26 +146,30 @@ const CourseTab = () => {
       const response = await publishCourse({ courseId, query: action });
       if (response.data) {
         refetch();
-        toast.success(response.data.message, {style: {color: "green"}});
+        toast.success(response.data.message, { style: { color: "green" } });
       }
     } catch (error) {
-      toast.error("Failed to publish course", {stylele: {color: "red"}});
+      toast.error("Failed to publish course", { stylele: { color: "red" } });
     }
   };
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message || "Course updated successfully.", {style: {color: "green"}});
+      toast.success(data.message || "Course updated successfully.", {
+        style: { color: "green" },
+      });
     }
     if (error) {
-      toast.error(error.data.message || "Failed to update course", {style: {color: "red"}});
+      toast.error(error.data.message || "Failed to update course", {
+        style: { color: "red" },
+      });
     }
   }, [isSuccess, error]);
 
   if (courseByIdLoading) return <h1>Loading...</h1>;
 
   return (
-    <Card>
+    <Card className="">
       <CardHeader className="flex flex-row justify-between">
         <div>
           <CardTitle>Basic Course Information</CardTitle>
@@ -175,6 +179,7 @@ const CourseTab = () => {
         </div>
         <div className="space-x-2">
           <Button
+            className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg flex items-center gap-2"
             disabled={!coursePublish}
             variant="outline"
             onClick={() =>

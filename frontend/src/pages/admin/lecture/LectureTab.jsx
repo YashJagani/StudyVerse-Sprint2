@@ -135,7 +135,7 @@ const LectureTab = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {/* Lecture Title Input */}
+              
               <div>
                 <Label className="text-black-700 text-md font-bold">Title</Label>
                 <Input
@@ -146,7 +146,7 @@ const LectureTab = () => {
                 />
               </div>
 
-              {/* Video Upload */}
+              
               <div className="mt-4">
                 <Label className="text-black-700 text-md font-bold">
                   Upload Video <span className="text-red-500">*</span>
@@ -165,13 +165,13 @@ const LectureTab = () => {
                 )}
               </div>
 
-              {/* Free Lecture Toggle */}
+              
               <div className="flex items-center gap-3 mt-4">
                 <Switch checked={isFree} onCheckedChange={setIsFree} />
                 <Label className="text-gray-700">Is this video FREE?</Label>
               </div>
 
-              {/* Action Buttons */}
+              
               <div className="mt-6 flex justify-between">
                 <Button
                   disabled={isLoading}
@@ -215,7 +215,7 @@ const LectureTab = () => {
         </Card>
       </div>
 
-      {/* 🔥 Delete Confirmation Dialog */}
+     
       {showDeleteDialog && (
         <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
           <DialogContent className="p-6">
