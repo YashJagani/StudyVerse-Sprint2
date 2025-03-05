@@ -137,7 +137,7 @@ const LectureTab = () => {
             <div className="space-y-4">
               {/* Lecture Title Input */}
               <div>
-                <Label className="text-black-700 font-bold">Title</Label>
+                <Label className="text-black-700 text-md font-bold">Title</Label>
                 <Input
                   value={lectureTitle}
                   onChange={(e) => setLectureTitle(e.target.value)}
@@ -148,7 +148,7 @@ const LectureTab = () => {
 
               {/* Video Upload */}
               <div className="mt-4">
-                <Label className="text-black-700 font-bold">
+                <Label className="text-black-700 text-md font-bold">
                   Upload Video <span className="text-red-500">*</span>
                 </Label>
                 <Input
