@@ -16,7 +16,7 @@ import {
   useRemoveLectureMutation,
 } from "@/features/api/courseApi";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash2, Pencil } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -25,7 +25,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogFooter,
-} from "@/components/ui/dialog"; 
+} from "@/components/ui/dialog";
 
 const MEDIA_API = "http://localhost:1552/api/v1/media";
 
@@ -78,11 +78,11 @@ const LectureTab = () => {
             publicId: res.data.data.public_id,
           });
           setBtnDisable(false);
-          toast.success(res.data.message, {style: {color: "green"}});
+          toast.success(res.data.message, { style: { color: "green" } });
         }
       } catch (error) {
         console.log(error);
-        toast.error("Video upload failed", {style: {color: "red"}});
+        toast.error("Video upload failed", { style: { color: "red" } });
       } finally {
         setMediaProgress(false);
       }
@@ -106,10 +106,10 @@ const LectureTab = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message, {style: {color: "green"}});
+      toast.success(data.message, { style: { color: "green" } });
     }
     if (error) {
-      toast.error(error.data.message, {style: {color: "red"}});
+      toast.error(error.data.message, { style: { color: "red" } });
     }
   }, [isSuccess, error]);
 
@@ -121,89 +121,106 @@ const LectureTab = () => {
 
   return (
     <>
-      <Card>
-        <CardHeader className="flex justify-between">
-          <div>
-            <CardTitle>Edit Lecture</CardTitle>
-            <CardDescription>
-              Make changes in existing lecture title and videos.
-            </CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div>
-            <Label>Title</Label>
-            <Input
-              value={lectureTitle}
-              onChange={(e) => setLectureTitle(e.target.value)}
-              type="text"
-              placeholder="Ex. Introduction to Javascript"
-            />
-          </div>
-          <div className="my-5">
-            <Label>
-              Video <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              type="file"
-              accept="video/*"
-              onChange={fileChangeHandler}
-              placeholder="Ex. Introduction to Javascript"
-              className="w-fit"
-            />
-          </div>
-          <div className="flex items-center space-x-2 my-5">
-            <Switch
-              checked={isFree}
-              onCheckedChange={setIsFree}
-              id="airplane-mode"
-            />
-            <Label htmlFor="airplane-mode">Is this video FREE</Label>
-          </div>
-
-          {mediaProgress && (
-            <div className="my-4">
-              <Progress value={uploadProgress} />
-              <p>{uploadProgress}% uploaded</p>
+      <div className="flex justify-center">
+        <Card className="w-full max-w-3xl shadow-xl border rounded-2xl bg-white p-6">
+          <CardHeader className="flex justify-between">
+            <div>
+              <CardTitle className="text-xl font-bold text-black-800">
+                Edit Lecture
+              </CardTitle>
+              <CardDescription className="text-gray-600">
+                Edit lecture title and video.
+              </CardDescription>
             </div>
-          )}
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {/* Lecture Title Input */}
+              <div>
+                <Label className="text-black-700 font-bold">Title</Label>
+                <Input
+                  value={lectureTitle}
+                  onChange={(e) => setLectureTitle(e.target.value)}
+                  type="text"
+                  placeholder="Enter lecture title..."
+                />
+              </div>
 
-          <div className="mt-4">
-            <Button disabled={isLoading} onClick={editLectureHandler}>
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                "Update Lecture"
-              )}
-            </Button>
-            &nbsp; &nbsp;
-            <Button
-              disabled={removeLoading}
-              variant="destructive"
-              onClick={() => setShowDeleteDialog(true)}
-            >
-              {removeLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                "Remove Lecture"
-              )}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+              {/* Video Upload */}
+              <div className="mt-4">
+                <Label className="text-black-700 font-bold">
+                  Upload Video <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  type="file"
+                  accept="video/*"
+                  onChange={fileChangeHandler}
+                  className="w-full"
+                />
+                {mediaProgress && (
+                  <div className="mt-3">
+                    <Progress value={uploadProgress} />
+                    <p className="text-gray-600 text-sm">{uploadProgress}% uploaded</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Free Lecture Toggle */}
+              <div className="flex items-center gap-3 mt-4">
+                <Switch checked={isFree} onCheckedChange={setIsFree} />
+                <Label className="text-gray-700">Is this video FREE?</Label>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-6 flex justify-between">
+                <Button
+                  disabled={isLoading}
+                  onClick={editLectureHandler}
+                  className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg flex items-center gap-2"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="animate-spin h-5 w-5" />
+                      Please wait
+                    </>
+                  ) : (
+                    <>
+                      <Pencil size={18} />
+                      Update Lecture
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  disabled={removeLoading}
+                  variant="destructive"
+                  onClick={() => setShowDeleteDialog(true)}
+                  className="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-lg flex items-center gap-2"
+                >
+                  {removeLoading ? (
+                    <>
+                      <Loader2 className="animate-spin h-5 w-5" />
+                      Please wait
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 size={18} />
+                      Remove Lecture
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* 🔥 Delete Confirmation Dialog */}
       {showDeleteDialog && (
         <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
           <DialogContent className="p-6">
             <DialogHeader>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-800">
                 Are you sure you want to delete this lecture?
               </h3>
             </DialogHeader>
@@ -211,13 +228,13 @@ const LectureTab = () => {
               <Button
                 variant="outline"
                 onClick={() => setShowDeleteDialog(false)}
-                className="text-gray-800 border-gray-800 dark:text-white dark:border-white hover:bg-gray-300 dark:hover:bg-gray-700"
+                className="border-gray-600 text-gray-700 hover:bg-gray-200"
               >
                 Cancel
               </Button>
               <Button
                 onClick={removeLectureHandler}
-                className="bg-red-500 text-white hover:bg-red-700"
+                className="bg-red-500 text-white hover:bg-red-600"
               >
                 Yes
               </Button>

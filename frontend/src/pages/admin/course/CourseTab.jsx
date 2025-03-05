@@ -48,6 +48,7 @@ const CourseTab = () => {
   });
 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [coursePublish, setCoursePublish] = useState(false);
 
   const params = useParams();
   const courseId = params.courseId;
@@ -73,36 +74,30 @@ const CourseTab = () => {
         coursePrice: course.coursePrice,
         courseThumbnail: "",
       });
+
+      setCoursePublish(
+        course.courseTitle &&
+          course.subTitle &&
+          course.description &&
+          course.category &&
+          course.courseLevel &&
+          course.coursePrice &&
+          course.lectures.length > 0 
+      );
     }
   }, [courseByIdData]);
-  // const [deleteCourse] = useDeleteCourseMutation();
-  // const deleteCourseHandler = async () => {
-  //   // if (!window.confirm("Are you sure you want to delete this course?")) return;
-
-  //   setShowDeleteDialog(false);
-
-  //   try {
-  //     const response = await deleteCourse(courseId);
-  //     if (response.data) {
-  //       toast.success(response.data.message);
-  //       navigate("/admin/course"); // Redirect after deleting
-  //     }
-  //   } catch (error) {
-  //     toast.error(error?.data?.message || "Failed to delete course");
-  //   }
-  // };
 
   const deleteCourseHandler = async () => {
     try {
       const response = await deleteCourse(courseId);
       if (response.data) {
         toast.success(response.data.message, {style: {color: "green"}});
-        navigate("/admin/course"); // Redirect after deleting
+        navigate("/admin/course"); 
       }
     } catch (error) {
       toast.error(error?.data?.message || "Failed to delete course");
     }
-    setShowDeleteDialog(false); // Close the dialog
+    setShowDeleteDialog(false); 
   };
   const [previewThumbnail, setPreviewThumbnail] = useState("");
   // const navigate = useNavigate();
@@ -143,6 +138,7 @@ const CourseTab = () => {
     formData.append("courseThumbnail", input.courseThumbnail);
 
     await editCourse({ formData, courseId });
+    refetch();
   };
 
   const publishStatusHandler = async (action) => {
@@ -150,10 +146,10 @@ const CourseTab = () => {
       const response = await publishCourse({ courseId, query: action });
       if (response.data) {
         refetch();
-        toast.success(response.data.message);
+        toast.success(response.data.message, {style: {color: "green"}});
       }
     } catch (error) {
-      toast.error("Failed to publish or unpublish course");
+      toast.error("Failed to publish course", {stylele: {color: "red"}});
     }
   };
 
@@ -162,7 +158,7 @@ const CourseTab = () => {
       toast.success(data.message || "Course updated successfully.", {style: {color: "green"}});
     }
     if (error) {
-      toast.error(error.data.message || "Failed to update course");
+      toast.error(error.data.message || "Failed to update course", {style: {color: "red"}});
     }
   }, [isSuccess, error]);
 
@@ -179,7 +175,7 @@ const CourseTab = () => {
         </div>
         <div className="space-x-2">
           <Button
-            disabled={courseByIdData?.course.lectures.length === 0}
+            disabled={!coursePublish}
             variant="outline"
             onClick={() =>
               publishStatusHandler(
