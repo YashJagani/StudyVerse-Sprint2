@@ -82,7 +82,7 @@ const CourseTab = () => {
           course.category &&
           course.courseLevel &&
           course.coursePrice &&
-          course.lectures.length > 0
+          course.lectures.length > 0 
       );
     }
   }, [courseByIdData]);
@@ -91,13 +91,13 @@ const CourseTab = () => {
     try {
       const response = await deleteCourse(courseId);
       if (response.data) {
-        toast.success(response.data.message, { style: { color: "green" } });
-        navigate("/admin/course");
+        toast.success(response.data.message, {style: {color: "green"}});
+        navigate("/admin/course"); 
       }
     } catch (error) {
       toast.error(error?.data?.message || "Failed to delete course");
     }
-    setShowDeleteDialog(false);
+    setShowDeleteDialog(false); 
   };
   const [previewThumbnail, setPreviewThumbnail] = useState("");
   // const navigate = useNavigate();
@@ -146,30 +146,26 @@ const CourseTab = () => {
       const response = await publishCourse({ courseId, query: action });
       if (response.data) {
         refetch();
-        toast.success(response.data.message, { style: { color: "green" } });
+        toast.success(response.data.message, {style: {color: "green"}});
       }
     } catch (error) {
-      toast.error("Failed to publish course", { stylele: { color: "red" } });
+      toast.error("Failed to publish course", {stylele: {color: "red"}});
     }
   };
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message || "Course updated successfully.", {
-        style: { color: "green" },
-      });
+      toast.success(data.message || "Course updated successfully.", {style: {color: "green"}});
     }
     if (error) {
-      toast.error(error.data.message || "Failed to update course", {
-        style: { color: "red" },
-      });
+      toast.error(error.data.message || "Failed to update course", {style: {color: "red"}});
     }
   }, [isSuccess, error]);
 
   if (courseByIdLoading) return <h1>Loading...</h1>;
 
   return (
-    <Card className="">
+    <Card>
       <CardHeader className="flex flex-row justify-between">
         <div>
           <CardTitle>Basic Course Information</CardTitle>
@@ -179,7 +175,7 @@ const CourseTab = () => {
         </div>
         <div className="space-x-2">
           <Button
-            className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg flex items-center gap-2"
+          className="bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
             disabled={!coursePublish}
             variant="outline"
             onClick={() =>
@@ -226,7 +222,7 @@ const CourseTab = () => {
       <CardContent>
         <div className="space-y-4 mt-5">
           <div>
-            <Label>Title</Label>
+            <Label className="font-bold">Title</Label>
             <Input
               type="text"
               name="courseTitle"
@@ -236,7 +232,7 @@ const CourseTab = () => {
             />
           </div>
           <div>
-            <Label>Subtitle</Label>
+            <Label className="font-bold">Subtitle</Label>
             <Input
               type="text"
               name="subTitle"
@@ -246,12 +242,12 @@ const CourseTab = () => {
             />
           </div>
           <div>
-            <Label>Description</Label>
+            <Label className="font-bold">Description</Label>
             <RichTextEditor input={input} setInput={setInput} />
           </div>
           <div className="flex items-center gap-5">
             <div>
-              <Label>Category</Label>
+              <Label className="font-bold">Category</Label>
               <Select
                 defaultValue={input.category}
                 onValueChange={selectCategory}
@@ -261,7 +257,7 @@ const CourseTab = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Category</SelectLabel>
+                    <SelectLabel className="font-bold">Category</SelectLabel>
                     <SelectItem value="Next JS">Next JS</SelectItem>
                     <SelectItem value="Data Science">Data Science</SelectItem>
                     <SelectItem value="Frontend Development">
@@ -283,7 +279,7 @@ const CourseTab = () => {
               </Select>
             </div>
             <div>
-              <Label>Course Level</Label>
+              <Label className="font-bold">Course Level</Label>
               <Select
                 defaultValue={input.courseLevel}
                 onValueChange={selectCourseLevel}
@@ -293,7 +289,7 @@ const CourseTab = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Course Level</SelectLabel>
+                    <SelectLabel className="font-bold">Course Level</SelectLabel>
                     <SelectItem value="Beginner">Beginner</SelectItem>
                     <SelectItem value="Medium">Medium</SelectItem>
                     <SelectItem value="Advance">Advance</SelectItem>
@@ -302,7 +298,7 @@ const CourseTab = () => {
               </Select>
             </div>
             <div>
-              <Label>Price in (CAD)</Label>
+              <Label className="font-bold">Price in (CAD)</Label>
               <Input
                 type="number"
                 name="coursePrice"
@@ -314,7 +310,7 @@ const CourseTab = () => {
             </div>
           </div>
           <div>
-            <Label>Course Thumbnail</Label>
+            <Label className="font-bold">Course Thumbnail</Label>
             <Input
               type="file"
               onChange={selectThumbnail}
@@ -330,11 +326,15 @@ const CourseTab = () => {
             )}
           </div>
           <div>
-            <Button onClick={() => navigate("/admin/course")} variant="outline">
+            <Button onClick={() => navigate("/admin/course")} variant="outline"
+              className="border-black"
+              >
               Cancel
             </Button>{" "}
             &nbsp;
-            <Button disabled={isLoading} onClick={updateCourseHandler}>
+            <Button disabled={isLoading} onClick={updateCourseHandler}
+            className="bg-blue-600 hover:bg-blue-700"
+            >
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
