@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,16 +36,30 @@ const AddCourse = () => {
     setCategory(value);
   };
 
-  const createCourseHandler = async () => {
+  const validateForm = () => {
+    if (!courseTitle.trim()) {
+      toast.error(" Course title is required.", { style: { color: "red" } });
+      return false;
+    }
+    if (!category) {
+      toast.error(" Category is required.", { style: { color: "red" } });
+      return false;
+    }
+    return true;
+  };
+
+  const createCourseHandler = async (e) => {
+    e.preventDefault(); // Prevent form refresh
+    if (!validateForm()) return;
     await createCourse({ courseTitle, category });
   };
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data?.message || "Course created successfully!", {
-        style: { color: "green" },
-      });
+      toast.success(" Course created successfully!", { style: { color: "green" } });
       navigate("/admin/course");
+    } else if (error) {
+      toast.error(` ${error?.data?.message || "An error occurred."}`, { style: { color: "red" } });
     }
   }, [isSuccess, error]);
 
@@ -62,7 +75,7 @@ const AddCourse = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={createCourseHandler}>
             <div className="space-y-2">
               <Label className="text-lg font-medium">Course Title</Label>
               <Input
@@ -113,8 +126,8 @@ const AddCourse = () => {
                 Back
               </Button>
               <Button
+                type="submit"
                 disabled={isLoading}
-                onClick={createCourseHandler}
                 className="w-2/5 bg-blue-600 hover:bg-blue-700 text-white"
               >
                 {isLoading ? (
@@ -135,4 +148,3 @@ const AddCourse = () => {
 };
 
 export default AddCourse;
-
